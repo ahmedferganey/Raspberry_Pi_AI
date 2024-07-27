@@ -1,0 +1,29 @@
+(ml_cv_env) ahmed-ferganey@ahmedferganey:~$ sudo apt-get install qemu-user
+(ml_cv_env) ahmed-ferganey@ahmedferganey:~$ sudo dpkg -L qemu-user
+(ml_cv_env) ahmed-ferganey@ahmedferganey:~$ sudo apt-get update
+(ml_cv_env) ahmed-ferganey@ahmedferganey:~$ sudo apt-get install g++-13-arm-linux-gnueabihf
+(ml_cv_env) ahmed-ferganey@ahmedferganey:~$ sudo apt-get update
+(ml_cv_env) ahmed-ferganey@ahmedferganey:~$ sudo apt-get install qemu-system-arm
+(ml_cv_env) ahmed-ferganey@ahmedferganey:~$ qemu-system-arm -M help
+(ml_cv_env) ahmed-ferganey@ahmedferganey:~$ qemu-system-aarch64 -M help
+(ml_cv_env) ahmed-ferganey@ahmedferganey:~$ qemu-system-arm -M vexpress-a9 -m 128M -nographic -kernel u-boot
+
+    Click on (ctrl+A)+X ----> to exit
+
+(ml_cv_env) ahmed-ferganey@ahmedferganey:/media/ahmed-ferganey/EmbeddedSystem1/MyGithub/Raspberry_Pi_AI/qemu/u-boot$        git clone --depth=1 https://github.com/u-boot/u-boot.git
+(ml_cv_env) ahmed-ferganey@ahmedferganey:/media/ahmed-ferganey/EmbeddedSystem1/MyGithub/Raspberry_Pi_AI/qemu/u-boot/u-boot$ ls configs/
+(ml_cv_env) ahmed-ferganey@ahmedferganey:/media/ahmed-ferganey/EmbeddedSystem1/MyGithub/Raspberry_Pi_AI/qemu/u-boot/u-boot$ ls configs/ | grep vexpress
+(ml_cv_env) ahmed-ferganey@ahmedferganey:/media/ahmed-ferganey/EmbeddedSystem1/MyGithub/Raspberry_Pi_AI/qemu/u-boot/u-boot$ make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- vexpress_ca9x4_defconfig
+______________________________________________________________________________________________________________________
+Use the search functionality:
+
+Press / on your keyboard to bring up the search dialog.
+Type the keyword or phrase you are looking for, such as "custom environment".
+Press Enter to start the search.
+______________________________________________________________________________________________________________________
+
+(ml_cv_env) ahmed-ferganey@ahmedferganey:/media/ahmed-ferganey/EmbeddedSystem1/MyGithub/Raspberry_Pi_AI/qemu/u-boot/u-boot$ make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- menuconfig
+
+(ml_cv_env) ahmed-ferganey@ahmedferganey:/media/ahmed-ferganey/EmbeddedSystem1/MyGithub/Raspberry_Pi_AI/qemu/u-boot/u-boot$ make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- -j 20
+
+root@2732d6b1fbe7:/u-boot# qemu-system-arm -M vexpress-a9 -m 128M -nographic -kernel u-boot 

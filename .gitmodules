@@ -1,0 +1,3 @@
+[submodule "qemu/u-boot/u-boot"]
+	path = qemu/u-boot/u-boot
+	url = https://github.com/u-boot/u-boot.git
