@@ -26,4 +26,90 @@ ________________________________________________________________________________
 
 (ml_cv_env) ahmed-ferganey@ahmedferganey:/media/ahmed-ferganey/EmbeddedSystem1/MyGithub/Raspberry_Pi_AI/qemu/u-boot/u-boot$ make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- -j 20
 
+
+
 root@2732d6b1fbe7:/u-boot# qemu-system-arm -M vexpress-a9 -m 128M -nographic -kernel u-boot 
+root@2732d6b1fbe7:/qemu/sdcard# sudo dd if=/dev/zero  of=file.imag  count=1024  bs=1M status=progress
+root@2732d6b1fbe7:/qemu/sdcard# ls -lhs
+root@2732d6b1fbe7:/qemu/sdcard# hexdump -C file.img
+root@2732d6b1fbe7:/qemu/sdcard# sudo cfdisk file.img 
+
+ahmed-ferganey@ahmedferganey:/media/ahmed-ferganey/EmbeddedSystem1/MyGithub/RasBI_AI$ docker run --privileged -it --name docker-ubuntu-qemu-ras-pi ahmedferganey/docker-ubuntu-qemu-ras-pi:v1.1 /bin/bash
+
+                    v1.1
+______________________________________________________________________________________________
+ahmed-ferganey@ahmedferganey:/media/ahmed-ferganey/EmbeddedSystem1/MyGithub/RasBI_AI$ docker run --privileged -it --name docker-ubuntu-qemu-ras-pi ahmedferganey/docker-ubuntu-qemu-ras-pi:v1.1 /bin/bash
+root@c213fa1fc01b:/#  apt-get update
+root@c213fa1fc01b:/#  apt-get install -y sudo
+root@c213fa1fc01b:/#  sudo --version
+root@c213fa1fc01b:/#  ls -l /dev/loop*
+root@c213fa1fc01b:/#  apt-get update
+root@c213fa1fc01b:/#  apt-get install -y util-linux
+root@c213fa1fc01b:/#  losetup --version
+root@c213fa1fc01b:/qemu/sdcard#  sudo losetup -f --show --partscan file.img
+root@c213fa1fc01b:/qemu/sdcard#  mkdir mmcStorage
+root@c213fa1fc01b:/qemu/sdcard#  sudo losetup -l
+root@c213fa1fc01b:/qemu/sdcard/mmcStorage# sudo apt-get update
+root@c213fa1fc01b:/qemu/sdcard/mmcStorage# sudo fdisk -l /dev/loop3
+
+    Device       Boot  Start     End Sectors  Size Id Type
+    /dev/loop3p1 *      2048  206847  204800  100M  6 FAT16
+    /dev/loop3p2      206848 2097151 1890304  923M 83 Linux
+
+root@c213fa1fc01b:/qemu/sdcard/mmcStorage# mkdir boot rootfs
+root@c213fa1fc01b:/qemu/sdcard/mmcStorage# apt-get install -y dosfstools
+root@c213fa1fc01b:/qemu/sdcard/mmcStorage# apt-get update
+root@c213fa1fc01b:/qemu/sdcard/mmcStorage# apt-get install -y tree
+root@c213fa1fc01b:/qemu/sdcard/mmcStorage# tree
+root@c213fa1fc01b:/qemu/sdcard/mmcStorage# sudo apt-get update
+root@c213fa1fc01b:/qemu/sdcard/mmcStorage# sudo apt-get install parted
+root@c213fa1fc01b:/qemu/sdcard/mmcStorage# sudo apt-get install udev
+root@10ec3a6c3f3a:/qemu/sdcard/mmcStorage# sudo lsblk
+root@10ec3a6c3f3a:/qemu/sdcard/mmcStorage# sudo apt-get update
+root@10ec3a6c3f3a:/qemu/sdcard/mmcStorage# sudo apt-get install kpartx
+root@10ec3a6c3f3a:/qemu/sdcard/mmcStorage# sudo kpartx -av /dev/loop3
+root@10ec3a6c3f3a:/qemu/sdcard/mmcStorage# sudo apt update
+root@10ec3a6c3f3a:/qemu/sdcard/mmcStorage# sudo apt install file
+root@10ec3a6c3f3a:/qemu/sdcard/mmcStorage# sudo file -s /dev/mapper/loop3p1
+root@10ec3a6c3f3a:/qemu/sdcard/mmcStorage# sudo fdisk -l /dev/loop3
+root@10ec3a6c3f3a:/qemu/sdcard/mmcStorage# sudo mkfs.vfat -F 16 /dev/mapper/loop3p1
+root@10ec3a6c3f3a:/qemu/sdcard/mmcStorage# sudo mkfs.ext4 /dev/mapper/loop3p2
+root@10ec3a6c3f3a:/qemu/sdcard/mmcStorage# sudo mount /dev/mapper/loop3p2 /qemu/sdcard/mmcStorage/rootfs/
+root@10ec3a6c3f3a:/qemu/sdcard/mmcStorage# sudo mount /dev/mapper/loop3p1 /qemu/sdcard/mmcStorage/boot/
+root@10ec3a6c3f3a:/qemu/sdcard/mmcStorage# tree
+root@10ec3a6c3f3a:/qemu/sdcard/mmcStorage# sudo umount mmcStorage/boot
+root@10ec3a6c3f3a:/qemu/sdcard/mmcStorage# sudo umount mmcStorage/rootfs
+
+    It looks like you successfully unmounted the partitions. However, the command sudo losetup -d /dev/mapper/loop3 
+    is incorrect. You need to detach the loop device itself, not the mapped partitions. Here’s how you should do it:
+root@10ec3a6c3f3a:/qemu/sdcard/mmcStorage# sudo kpartx -d /dev/loop3
+root@10ec3a6c3f3a:/qemu/sdcard/mmcStorage# sudo losetup -d /dev/loop3
+___________________________________________________________
+root@10ec3a6c3f3a:/qemu/u-boot# qemu-system-arm -M vexpress-a9 -m 128M -nographic -kernel u-boot/u-boot -sd sdcard/file.img
+=> ls mmc 0:1
+=> help fatload
+=> fatload mmc 0:1 0x60000000 
+
+v1.3
+___________________________________________________________
+root@e9c03961f380:/linux# git config --global http.postBuffer 524288000
+root@e9c03961f380:/linux# git clone https://github.com/torvalds/linux
+root@e9c03961f380:/linux# make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf-    vexpress_defconfig
+root@e9c03961f380:/linux# make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf-    -j  30
+root@e9c03961f380:/linux# ls arc/arm/configs/ | grep vexpress
+
+
+apt-get update && apt-get install -y iputils-ping
+git config --global http.lowSpeedLimit 0
+git config --global http.lowSpeedTime 999999
+
+4. Clone the Repository Outside the Container
+If the container's environment is causing issues, you might try cloning the repository on the host machine and then copying it into the container:
+        git clone https://github.com/torvalds/linux
+
+docker cp ./linux <container_id>:/path/inside/container
+___________________________________________________________
+
+
+
+
